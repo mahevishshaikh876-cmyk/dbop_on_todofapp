@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+</head>
+
+<body>
+
+    <h1>Todo App</h1>
+
+    <!-- Add Task -->
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Enter task">
+        <input type="submit" value="Add">
+    </form>
+
+
+    <ul>
+
+        {% for element in todo %}
+
+        <li>
+
+            
+            {% if element.is_done %}
+            <h2><del>{{ element.task }}</del></h2>
+            {% else %}
+            <h2>{{ element.task }}</h2>
+            {% endif %}
+
+            <form action="/update/{{ element.id }}" method="GET" style="display:inline;">
+
+                {% if element.is_done %}
+                <button type="submit">Undone</button>
+                {% else %}
+                <button type="submit">Done</button>
+                {% endif %}
+
+            </form>
+
+            <form action="/delete/{{ element.id }}" method="POST" style="display:inline;">
+
+                <button type="submit">
+                    Delete
+                </button>
+
+            </form>
+        </li>
+
+        {% endfor %}
+
+    </ul>
+</body>
+</html>
